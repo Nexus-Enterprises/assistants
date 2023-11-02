@@ -36,17 +36,17 @@ installContainerMySQL() {
             sudo systemctl start docker
             sudo systemctl enable docker
             sleep 2
-            sudo docker pull mysql:5.7
-            sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_DATABASE=Nexus" -e "MYSQL_ROOT_PASSWORD=secret" mysql:5.7
+            sudo docker pull mysql:latest
+            sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_DATABASE=NEXUS" -e "MYSQL_ROOT_PASSWORD=nexus123" mysql:latest
             sleep 10
 
-            sudo docker exec -i NexusBank mysql -u root -psecret Nexus < script.sql
+            sudo docker exec -i NexusBank mysql -u root -pnexus123 NEXUS < script.sql
             echo "Docker instalado com sucesso e container criado com sucesso!"
             echo "Agora iremos criar as tabelas no banco de dados"
             sleep 2
 
             sudo apt install mysql-client -y
-            mysql -u root -psecret -h 127.0.0.1 -P 3306 Nexus < script.sql
+            mysql -u root -pnexus123 -h 127.0.0.1 -P 3306 NEXUS < script.sql
 
             echo "Tabelas criadas com sucesso!"
             echo "Tudo configurado com sucesso!"

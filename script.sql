@@ -127,3 +127,41 @@ CREATE TABLE Registro (
     FOREIGN KEY (fkMaquina)
     REFERENCES Maquina (idMaquina)
 );
+
+-- Inserindo dados na tabela Endereco
+INSERT INTO Endereco (cep, logradouro, bairro, localidade, uf, complemento)
+VALUES
+  ('12345678', 'Rua Padrao', 'Padrao', 'Padrao', 'SP', 'Padrao');
+
+-- Inserindo dados na tabela Empresa
+INSERT INTO Empresa (nomeEmpresa, CNPJ, digito, descricao, ispb, situacao)
+VALUES
+  ('Bradesco', '60746948000112', '237', 'Bradesco S.A.', '60746948', 1),
+  ('Banco do Brasil', '00000000000191', '001', 'Banco do Brasil', '00000000', 1),
+  ('Itau', '60701190000104', '341', 'Itau', '60701190', 1);
+  
+-- Inserindo dados na tabela Agencia
+INSERT INTO Agencia (numero, digitoAgencia, ddd, telefone, email, fkEmpresa, fkEndereco)
+VALUES
+  ('11111', '1', '11', '111111111', 'padrao@padrao.com', 1, 1);
+
+
+SELECT 
+    F.nome,
+    F.situacao,
+    M.modelo,
+    M.marca,
+    M.sistemaOperacional,
+    M.situacao,
+    C.nome,
+    A.causa,
+    R.enderecoIPV4,
+    R.usoAtual,
+    R.dataHora
+FROM Funcionario AS F
+JOIN Maquina AS M ON F.idFuncionario = M.fkFuncionario
+JOIN Componente AS C ON M.idMaquina = C.fkMaquina
+JOIN Alerta AS A ON 1 = 1  -- Faz um "CROSS JOIN" para todos os alertas
+JOIN Registro AS R ON C.idComponente = R.fkComponente;
+
+select * from Usuario;

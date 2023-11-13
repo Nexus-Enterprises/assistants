@@ -84,9 +84,12 @@ CREATE TABLE Funcionario (
 );
 INSERT INTO Funcionario (nome, sobrenome, emailCorporativo, ddd, telefone, cargo, situacao, token, fkAgencia, fkEmpresa)
 VALUES
-('João', 'Silva', 'joao.silva@empresa.com', '11', '999999999', 'Analista de TI', 'Ativo', 'token1', 1, 1),
-('Maria', 'Pereira', 'maria.pereira@empresa.com', '21', '888888888', 'Desenvolvedor', 'Ativo', 'token2', 2, 1),
-('Pedro', 'Santos', 'pedro.santos@outraempresa.com', '31', '777777777', 'Analista de Redes', 'Inativo', 'token3', 3, 1);
+    ('Michael', 'Teixeira', 'michael.h.silva@bradesco.com.br', '11', '999999999', 'NOC', 'Ativo', 'O1O1', 2, 1),
+    ('Marcos', 'Trajano', 'marcos.vt.souza@bradesco.com.br', '11', '111111111', 'Gerente de Sistemas', 'Ativo', 'O1O2', 2, 1),
+    ('Lisandra', 'Cunha', 'lisandra.cunha@bradesco.com.br', '11', '222222222', 'Gerente de Contas', 'Ativo', 'O1O3', 2, 1),
+    ('Jeremias', 'Barcellos', 'jeremias.barcellos@simpress.com.br', '11', '333333333', 'NOC', 'Ativo', 'O1O4', 2, 1),
+    ('Lucas', 'Arantes', 'lfsarantes@simpress.com.br', '11', '444444444', 'Funcionario', 'Ativo', 'O1O5', 2, 1),
+    ('Guilherme', 'Santos', 'guilherme.dsantos@bradesco.com.br', '11', '555555555', 'Funcionario', 'Ativo', 'O1O6', 2, 1);
 
 CREATE TABLE Maquina (
   idMaquina INT AUTO_INCREMENT PRIMARY KEY,
@@ -110,15 +113,26 @@ CREATE TABLE Maquina (
 
 INSERT INTO Maquina (marca, modelo, situacao, sistemaOperacional, fkFuncionario, fkAgencia, fkEmpresa)
 VALUES 
-('Dell', 'Latitude 7400', 'Ativa', 'Windows 10', 1, 1, 1),
-('HP', 'ProBook 450 G6', 'Ativa', 'Windows 10', 1, 2, 1),
-('Lenovo', 'ThinkPad T480', 'Inativa', 'Windows 7', 2, 3, 2),
-('Apple', 'MacBook Air', 'Ativa', 'macOS', 2, 4, 2),
-('HP', 'EliteBook 840 G5', 'Ativa', 'Windows 10', 3, 5, 2);
+('Apple', 'MacBook Air', 'Ativa', 'macOS', 1, 2, 1),
+('Dell', 'Latitude 7400', 'Ativa', 'Linux Ubuntu', 2, 2, 1),
+('HP', 'ProBook 450 G6', 'Ativa', 'Windows 10', 3, 2, 1),
+('Lenovo', 'ThinkPad T480', 'Inativa', 'Windows 11', 4, 2, 1),
+('HP', 'EliteBook 840 G5', 'Ativa', 'Linux Mint', 5, 2, 1),
+('Asus', 'AlienWare', 'Inativa', 'Windows 11', 6, 2, 1);
 
 CREATE TABLE Componente (
   idComponente INT AUTO_INCREMENT PRIMARY KEY,
   nome VARCHAR(45) NULL UNIQUE
+);
+
+CREATE TABLE Processo (
+  idProcesso INT AUTO_INCREMENT PRIMARY KEY,
+  PID INT NOT NULL UNIQUE,
+  nome VARCHAR(45) NULL UNIQUE,
+  usoAtualRAM DOUBLE NULL,
+  usoAtualDisco DOUBLE NULL,
+  usoAtualCPU DOUBLE NULL,
+  dataHora DATETIME NOT NULL
 );
 
 INSERT INTO Componente (nome) VALUES
@@ -126,7 +140,7 @@ INSERT INTO Componente (nome) VALUES
   ('Memória RAM'),
   ('Disco rígido'),
   ('Placa de vídeo'),
-  ('Unidade de estado sólido (SSD)'),
+  ('Disco de estado sólido (SSD)'),
   ('Placa de rede (Ethernet)'),
   ('Placa de rede sem fio (Wi-Fi)'),
   ('Disco rígido externo');
@@ -182,11 +196,30 @@ CREATE TABLE Registro (
 
 INSERT INTO Registro (modelo, capacidadeMax, usoAtual, montagem, enderecoIPV4, dataHora, fkAlerta, fkComponente, fkMaquina)
 VALUES
-  ('CPU Intel i7', 4.0, 3.9, 'Slot A', '192.168.1.101', '2023-11-04 12:34:56', 3, 1, 1),
-  ('CPU Intel i7', 4.2, 4.0, 'Slot A', '192.168.1.101', '2023-11-04 12:34:56', 3, 1, 2),
-  ('CPU Intel i7', 4.0, 4.0, 'Slot A', '192.168.1.101', '2023-11-04 12:34:56', 3, 1, 3),
-  ('Memória RAM Kingston 8GB', 8.0, 3.0, 'Slot B', '192.168.1.102', '2023-11-04 13:45:30', 4, 2, 2),
-  ('Disco Rígido Seagate 1TB', 1000.0, 90.0, NULL, '192.168.1.103', '2023-11-04 14:56:12', 7, 3, 3);
+  ('Apple M3 Max', 6.0, 2.0, NULL, '192.168.1.101', NOW(), 1, 1, 1),
+  ('RAM Apple 32GB', 32.0, 8.0, NULL, '192.168.1.101', NOW(), 4, 2, 1),
+  ('SSD Apple 2TB', 2000.0, 300.0, NULL, '192.168.1.101', NOW(), 7, 3, 1),
+
+  ('Intel I9-1430', 3.0, 2.1, NULL, '192.168.1.102', NOW(), 2, 1, 2),
+  ('Cosair 8GB', 8.0, 5.0, NULL, '192.168.1.102', NOW(), 4, 2, 2),
+  ('Cosair 512GB', 512.0, 98.0, NULL, '192.168.1.102', NOW(), 7, 5, 2),
+
+  ('AMD Ryzen 7', 3.5, 2.9, NULL, '192.168.1.103', NOW(), 2, 1, 3),
+  ('Samsung 16GB', 16.0, 8.0, NULL, '192.168.1.103', NOW(), 4, 2, 3),
+  ('Samsung 1TB', 1000.0, 300.0, NULL, '192.168.1.103', NOW(), 7, 5, 3),
+
+  ('Intel I5-1220', 3.2, 1.9, NULL, '192.168.1.104', NOW(), 1, 1, 4),
+  ('Kingston 8GB', 8.0, 7.5, NULL, '192.168.1.104', NOW(), 6, 2, 4),
+  ('Seagate 256GB', 256.0, 100.0, NULL, '192.168.1.104', NOW(), 8, 3, 4),
+
+  ('Intel Core 2', 2.0, 1.9, NULL, '192.168.1.105', NOW(), 3, 1, 5),
+  ('Asgard 4GB', 4.0, 3.9, NULL, '192.168.1.105', NOW(), 6, 2, 5),
+  ('Barracuda 64GB', 64.0, 55.0, NULL, '192.168.1.105', NOW(), 9, 3, 5),
+
+  ('Intel I3-4730', 6.0, 2.0, NULL, '192.168.1.106', NOW(), 3, 1, 6),
+  ('XPG 12GB', 12.0, 8.0, NULL, '192.168.1.106', NOW(), 5, 2, 6),
+  ('XPG 512GB', 512.0, 176.64, NULL, '192.168.1.106', NOW(), 7, 3, 6);
+
 
 SELECT
   Registro.idRegistro,
@@ -223,3 +256,116 @@ WHERE Registro.fkAlerta = (SELECT idAlerta FROM Alerta WHERE causa = 'Sobrecarga
   AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco')
 ORDER BY (Registro.usoAtual - Registro.capacidadeMax) DESC
 LIMIT 1;
+
+
+SELECT DISTINCT
+  Maquina.idMaquina AS "ID Maquina",
+  Componente.nome AS "Nome Componente",
+  Registro.capacidadeMax AS "CapacidadeMaxima",
+  Registro.usoAtual AS "Uso Atual",
+  Maquina.situacao AS "Status"
+FROM (
+  SELECT
+      fkComponente,
+      MAX(Registro.dataHora) AS max_dataHora
+  FROM Registro
+  GROUP BY fkComponente	
+) AS ultimos_registros
+INNER JOIN Componente ON ultimos_registros.fkComponente = Componente.idComponente
+INNER JOIN Registro ON ultimos_registros.fkComponente = Registro.fkComponente AND ultimos_registros.max_dataHora = Registro.dataHora
+INNER JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+INNER JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+INNER JOIN Alerta ON Registro.fkAlerta = Alerta.idAlerta
+WHERE Maquina.fkAgencia = 1
+AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco');
+
+
+SELECT distinct
+    Maquina.idMaquina AS "ID Maquina",
+    Componente.nome AS "Nome da Tarefa",
+    Registro.usoAtual AS "Uso Atual", 
+    Registro.dataHora AS "Data / Hora"
+FROM (
+    SELECT
+        fkComponente,
+        MAX(usoAtual) AS max_usoAtual
+    FROM Registro
+    GROUP BY fkComponente
+) AS ultimos_registros
+INNER JOIN Componente ON ultimos_registros.fkComponente = Componente.idComponente
+INNER JOIN Registro ON ultimos_registros.fkComponente = Registro.fkComponente AND ultimos_registros.max_usoAtual = Registro.usoAtual
+INNER JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+INNER JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+INNER JOIN Alerta ON Registro.fkAlerta = Alerta.idAlerta
+WHERE Maquina.fkAgencia = 1
+AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco')
+order by Registro.usoAtual desc; 
+
+
+
+SELECT
+    Maquina.idMaquina AS "ID Maquina",
+    Componente.nome AS "Nome Componente",
+    Registro.capacidadeMax AS "Capacidade Máxima",
+    Registro.usoAtual AS "Uso Atual",
+    Maquina.situacao AS "Status",
+    MAX(Registro.dataHora) AS "Data / Hora"
+FROM Registro
+INNER JOIN Componente ON Registro.fkComponente = Componente.idComponente
+INNER JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+INNER JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+WHERE Maquina.fkAgencia = (SELECT idAgencia FROM Agencia WHERE email = 'padrao@padrao.com')
+AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco')
+AND Maquina.idMaquina = 1
+GROUP BY Maquina.idMaquina, Componente.nome, Registro.capacidadeMax, Registro.usoAtual, Maquina.situacao
+ORDER BY MAX(Registro.dataHora) DESC
+LIMIT 5;
+
+
+SELECT 
+       Maquina.idMaquina AS "NumeroMaquina",
+       Registro.capacidadeMax AS "TotalCapacidade",
+       Registro.usoAtual AS "ConsumoAtual"
+  FROM Registro
+    JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+    JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+  WHERE Registro.fkAlerta = (SELECT idAlerta FROM Alerta WHERE causa = 'Memória insuficiente' AND gravidade = 'Alta')
+    AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco')
+  ORDER BY (Registro.usoAtual - Registro.capacidadeMax) DESC
+  LIMIT 1;
+
+
+SELECT 
+       Maquina.idMaquina AS "NumeroMaquina",
+       Registro.capacidadeMax AS "TotalCapacidade",
+       Registro.usoAtual AS "ConsumoAtual"
+  FROM Registro
+    JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+    JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+  WHERE Registro.fkAlerta = (SELECT idAlerta FROM Alerta WHERE causa = 'Sobrecarga de CPU' AND gravidade = 'Alta')
+    AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco')
+  ORDER BY (Registro.usoAtual - Registro.capacidadeMax) DESC
+  LIMIT 1;
+  
+  
+  SELECT DISTINCT
+  Componente.nome AS "NomeComponente",
+  Registro.capacidadeMax AS "CapacidadeMaxima",
+  Registro.usoAtual AS "UsoAtual",
+  Maquina.situacao AS "Status",
+  Maquina.idMaquina AS "IdMaquina"
+FROM (
+  SELECT
+      fkComponente,
+      MAX(Registro.dataHora) AS max_dataHora
+  FROM Registro
+  GROUP BY fkComponente
+) AS ultimos_registros
+INNER JOIN Componente ON ultimos_registros.fkComponente = Componente.idComponente
+INNER JOIN Registro ON ultimos_registros.fkComponente = Registro.fkComponente AND ultimos_registros.max_dataHora = Registro.dataHora
+INNER JOIN Maquina ON Registro.fkMaquina = Maquina.idMaquina
+INNER JOIN Agencia ON Maquina.fkAgencia = Agencia.idAgencia
+INNER JOIN Alerta ON Registro.fkAlerta = Alerta.idAlerta
+WHERE Maquina.idMaquina = 1
+AND Maquina.fkAgencia = 1
+AND Agencia.fkEmpresa = (SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = 'Bradesco');

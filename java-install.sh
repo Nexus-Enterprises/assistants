@@ -1,3 +1,12 @@
+#!/bin/bash
+
+PURPLE='\033[0;35m'
+NC='\033[0m'
+VERSAO=17
+
+# Nome da empresa
+EMPRESA="Nexus"
+
 # Função para instalar o Java e executar o arquivo JAR
 installJavaNexus() {
     echo -e "${PURPLE}[${EMPRESA}]:${NC} Olá usuário, serei seu assistente para instalação do Java e execução do arquivo JAR!"

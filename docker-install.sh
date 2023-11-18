@@ -30,9 +30,9 @@ sudo docker pull mysql:5.7
 sleep 15
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Imagem do MySQL 5.7 baixada com sucesso!"
 
-# Criar e executar o container MySQL
+# Criar e executar o container MySQL com o script SQL
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Criando e executando o container MySQL..."
-sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_DATABASE=NEXUS" -e "MYSQL_ROOT_PASSWORD=nexus123" mysql:latest
+sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_DATABASE=NEXUS" -e "MYSQL_ROOT_PASSWORD=nexus123" -v /home/ubuntu/assistants:/docker-entrypoint-initdb.d mysql:5.7
 sleep 15
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Container MySQL criado e em execução!"
 

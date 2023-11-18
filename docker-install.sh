@@ -38,7 +38,7 @@ echo -e "${PURPLE}[${EMPRESA}]:${NC} Container MySQL criado e em execução!"
 
 # Executar o script SQL dentro do container MySQL
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Executando o script SQL dentro do container MySQL..."
-sudo docker exec -i NexusBank mysql -u root -pnexus123 NEXUS < /home/ubuntu/assistant/script.sql
+sudo docker exec -i NexusBank mysql -u root -pnexus123 NEXUS < /home/ubuntu/assistants/script.sql
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Script SQL executado com sucesso!"
 
 # Executar o arquivo java-install.sh

@@ -30,14 +30,14 @@ sleep 15
 
 # Criar e executar o container MySQL com o script SQL
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Criando e executando o container MySQL..."
-sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_DATABASE=NEXUS" -e "MYSQL_ROOT_PASSWORD=nexus123" mysql:latest
+sudo docker run -d -p 3306:3306 --name NexusBank -e "MYSQL_ROOT_PASSWORD=nexus123" mysql:latest
   
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Container MySQL criado e em execução!"
 
 # Executar o script SQL dentro do container MySQL
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Executando o script SQL dentro do container MySQL..."
 sleep 15
-sudo docker exec -i NexusBank mysql -u root -pnexus123 NEXUS < /home/ubuntu/assistants/script.sql
+sudo docker exec -i NexusBank mysql -u root -pnexus123 < /home/ubuntu/assistants/script.sql
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Script SQL executado com sucesso!"
 
 # Executar o arquivo java-install.sh

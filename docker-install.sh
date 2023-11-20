@@ -10,23 +10,23 @@ EMPRESA="Nexus"
 # Atualizar os pacotes do sistema
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Atualizando os pacotes..."
 sudo apt update && sudo apt upgrade -y
-sleep 30
+sleep 15
 
 # Mensagem informativa sobre a instalação do Docker
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Instalando o Docker..."
 sudo apt install docker.io -y
-sleep 30
+sleep 15
 
 # Iniciar o serviço do Docker
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Iniciando o serviço do Docker..."
 sudo systemctl start docker
 sudo systemctl enable docker
-sleep 30
+sleep 15
 
 # Baixar a imagem do MySQL 5.7
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Baixando a imagem do MySQL:latest..."
 sudo docker pull mysql:latest
-sleep 30
+sleep 15
 
 # Criar e executar o container MySQL com o script SQL
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Criando e executando o container MySQL..."

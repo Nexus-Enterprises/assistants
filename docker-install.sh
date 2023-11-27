@@ -10,7 +10,7 @@ EMPRESA="Nexus"
 # Atualizar os pacotes do sistema
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Atualizando os pacotes..."
 sudo apt update && sudo apt upgrade -y
-sleep 15
+sleep 10
 
 # Mensagem informativa sobre a instalação do Docker
 echo -e "${PURPLE}[${EMPRESA}]:${NC} Instalando o Docker..."
